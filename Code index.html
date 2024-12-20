@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Project Akhir ASS</h1>
+            <h2>Nama Kelompok:</h2>
+            <ul>
+                <li>Angeline Indah Nurhayati Karyadi</li>
+                <li>Hasna Najla Latifa</li>
+                <li>Rifdah Faiqoh</li>
+                <li>Sherina Yosephine Angelica</li>
+            </ul>
+        </header>
+<main>
+            <section class="upload-section">
+                <h3>Upload File</h3>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="file" name="fileInput" required><br><br>
+                    <textarea name="fileDescription" placeholder="Add file description" required></textarea><br><br>
+                    <button type="submit" name="submit">Upload</button>
+                </form>
+            </section>
+
+            <section class="file-list">
+                <h3>Files Uploaded</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>File Name</th>
+                            <th>File Size</th>
+                            <th>Description</th>
+                            <th>Action</th> 
+                         </tr>
+                    </thead>
+                    <tbody id="fileTable">
+                        <?php
+                            // Mendapatkan daftar file yang ada di direktori /mnt/backup
+                            $uploadedFiles = getUploadedFiles($uploadDirectory);
+                            if (count($uploadedFiles) > 0) {
+                                $index = 1;
+                                foreach ($uploadedFiles as $file) {
+                                    echo "<tr>
+                                            <td>{$index}</td>
+                                            <td>{$file['name']}</td>
+
+<td>{$file['size']} KB</td>
+                                            <td>{$_POST['fileDescription']}</td>  <!-- Placeholder untuk deskripsi -->
+                                            <td><a href='{$file['path']}' download>Download</a></td>
+                                          </tr>";
+                                    $index++;
+                                }
+                            } else {
+                                echo "<tr><td colspan='5' class='text-center'>No files uploaded yet.</td></tr>";
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
