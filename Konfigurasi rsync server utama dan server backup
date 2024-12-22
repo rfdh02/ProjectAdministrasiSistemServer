@@ -1,0 +1,27 @@
+# Kode Konfigurasi rsync pada server utama
+sudo rsync -avz --progress /folder/tempat/backup rib@10.12.14.63:/folder/tempat/backup
+
+# Kode Konfigurasi rsync pada server utama
+pid file = /var/run/rsyncd.pid
+max connections = 5
+use chroot = yes
+uid = nobody
+gid = nogroup
+
+[backup]
+path = /folder/tempat/backup
+comment = Folder Backup
+read only = no
+auth users = rib
+secrets file = /etc/rsyncd.secrets
+
+# Kode Konfigurasi rsync pada server utama
+0 2 * * * rsync -avz --progress /folder/tempat/backup rib@10.12.14.63:/folder/tempat/backup
+
+# Kode Konfigurasi rsync pada server backup
+[backup]
+path = /folder/tempat/backup
+comment = Backup Folder
+read only = no
+auth users = rib
+secrets file = /etc/rsyncd.secrets
