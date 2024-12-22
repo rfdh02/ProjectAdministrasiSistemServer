@@ -1,0 +1,10 @@
+# Server interface:
+sudo apt update
+sudo apt install nfs-kernel-server
+sudo nano /etc/exports
+/shared    *(rw,sync,no_subtree_check)
+sudo systemctl restart nfs-kernel-server
+
+# Server Utama:
+sudo apt install nfs-common
+sudo mount 192.168.1.100:/shared /mnt/backup
